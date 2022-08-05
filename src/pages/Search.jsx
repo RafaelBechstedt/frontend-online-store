@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Categories from '../components/Categories';
 
 export default class Search extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class Search extends Component {
         <Link data-testid="shopping-cart-button" to="/ShoppingCart">
           Carrinho de compra
         </Link>
+        <Categories />
       </div>
     );
   }
