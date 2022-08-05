@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import getCategories from '../services/api';
+import { getCategories } from '../services/api';
 
 export default class Categories extends Component {
   state = {
