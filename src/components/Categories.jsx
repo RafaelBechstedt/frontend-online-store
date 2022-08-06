@@ -9,7 +9,6 @@ export default class Categories extends Component {
   componentDidMount = async () => {
     const categories = await getCategories();
     this.setState({ categories });
-    console.log(categories);
   }
 
   render() {
