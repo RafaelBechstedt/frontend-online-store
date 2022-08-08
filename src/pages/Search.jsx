@@ -76,6 +76,7 @@ export default class Search extends Component {
                     name={ title }
                     price={ price }
                     image={ thumbnail }
+                    id={ id }
                   />
                 );
               })) : <p>Nenhum produto foi encontrado</p> }
