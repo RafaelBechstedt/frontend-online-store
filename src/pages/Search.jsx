@@ -10,6 +10,7 @@ export default class Search extends Component {
 
     this.inputChange = this.inputChange.bind(this);
     this.buttonSearch = this.buttonSearch.bind(this);
+    this.addInCart = this.addInCart.bind(this);
 
     this.state = {
       search: '',
@@ -24,6 +25,15 @@ export default class Search extends Component {
       if (name === 'category') this.buttonSearch();
       console.log(name, value);
     });
+  }
+
+  addInCart({ target }) {
+    const { products } = this.state;
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    const trueCart = (cart) || [];
+    const product = products.find((pro) => pro.id === target.id);
+    trueCart.push(product);
+    localStorage.setItem('cart', JSON.stringify(trueCart));
   }
 
   async buttonSearch() {
@@ -71,13 +81,21 @@ export default class Search extends Component {
               products.map((product) => {
                 const { price, title, thumbnail, id } = product;
                 return (
-                  <Products
-                    key={ id }
-                    name={ title }
-                    price={ price }
-                    image={ thumbnail }
-                    id={ id }
-                  />
+                  <div key={ id }>
+                    <Products
+                      name={ title }
+                      price={ price }
+                      image={ thumbnail }
+                    />
+                    <button
+                      type="button"
+                      id={ id }
+                      data-testid="product-add-to-cart"
+                      onClick={ this.addInCart }
+                    >
+                      Adicionar ao Carrinho
+                    </button>
+                  </div>
                 );
               })) : <p>Nenhum produto foi encontrado</p> }
         </section>
