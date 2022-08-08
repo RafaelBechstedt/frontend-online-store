@@ -14,18 +14,22 @@ export default class Search extends Component {
     this.state = {
       search: '',
       products: [],
+      category: '',
     };
   }
 
   inputChange({ target }) {
     const { name, value } = target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => {
+      if (name === 'category') this.buttonSearch();
+      console.log(name, value);
+    });
   }
 
   async buttonSearch() {
-    const { search } = this.state;
-    const data = await getProductsFromCategoryAndQuery('', search);
-    console.log(data.results);
+    const { search, category } = this.state;
+    const data = await getProductsFromCategoryAndQuery(category, search);
+    // console.log(data.results);
     this.setState({ products: data.results });
   }
 
@@ -58,7 +62,9 @@ export default class Search extends Component {
         <Link data-testid="shopping-cart-button" to="/ShoppingCart">
           Carrinho de compra
         </Link>
-        <Categories />
+        <Categories
+          inputChange={ this.inputChange }
+        />
         <section>
           { products.length !== 0
             ? (
