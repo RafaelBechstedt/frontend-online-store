@@ -15,6 +15,14 @@ export default class Product extends Component {
     this.setState({ product: response });
   }
 
+  addInCart = () => {
+    const { product } = this.state;
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    const trueCart = (cart) || [];
+    trueCart.push(product);
+    localStorage.setItem('cart', JSON.stringify(trueCart));
+  }
+
   render() {
     const { product: { title, price, thumbnail, attributes } } = this.state;
     console.log(attributes);
@@ -30,6 +38,13 @@ export default class Product extends Component {
             ))}
           </ul>
         </section>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ this.addInCart }
+        >
+          Adicionar ao Carrinho
+        </button>
         <Link to="/ShoppingCart" data-testid="shopping-cart-button">Carrinho</Link>
       </div>
     );
