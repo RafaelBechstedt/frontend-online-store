@@ -23,7 +23,6 @@ export default class Search extends Component {
     const { name, value } = target;
     this.setState({ [name]: value }, () => {
       if (name === 'category') this.buttonSearch();
-      console.log(name, value);
     });
   }
 
@@ -86,6 +85,7 @@ export default class Search extends Component {
                       name={ title }
                       price={ price }
                       image={ thumbnail }
+                      id={ id }
                     />
                     <button
                       type="button"
