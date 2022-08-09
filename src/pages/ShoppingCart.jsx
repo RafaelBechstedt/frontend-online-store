@@ -9,7 +9,7 @@ export default class ShoppingCart extends Component {
 
   componentDidMount() {
     const recoveryCart = JSON.parse(localStorage.getItem('cart'));
-    const elementsId = [...new Set(recoveryCart.map(({ id }) => id))];
+    const elementsId = recoveryCart && [...new Set(recoveryCart.map(({ id }) => id))];
     console.log(elementsId);
     this.setState({ shopping: recoveryCart, elementsId });
   }
