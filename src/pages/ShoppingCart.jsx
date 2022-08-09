@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CartItem from '../components/CartItem';
 
 export default class ShoppingCart extends Component {
   state = {
@@ -15,29 +16,25 @@ export default class ShoppingCart extends Component {
 
   render() {
     const { shopping, elementsId } = this.state;
-    const items = shopping && (shopping
-      .filter(({ id }) => elementsId.some((value) => value === id)));
     return (
       <div>
         { !shopping
           ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
           : (
-            items.map((product) => {
-              const { id, name } = product;
-              const repeat = shopping.filter(({ id: objId }) => objId === id).length;
+            elementsId.map((elemento) => {
+              const products = shopping.filter(({ id }) => elemento === id);
+              const [{ title, id, price, thumbnail }] = products;
               return (
-                <div key={ id }>
-                  <p>{ repeat }</p>
-                  <p>{ name }</p>
-                </div>
+                <CartItem
+                  key={ id }
+                  title={ title }
+                  price={ price }
+                  image={ thumbnail }
+                  quantity={ products.length }
+                />
               );
-            })
-          )}
+            }))}
       </div>
     );
   }
 }
-
-/* console.log(new Set(recoveryCart.id));
-const unicos = [...new Set(recoveryCart.id)];
-console.log(unicos); */
